@@ -2,7 +2,7 @@
 
 A simple command-line Hangman game built with Python.
 
-This project is part of my Python learning journey and focuses on applying programming concepts through a complete game project.
+This project is part of my Python learning journey and focuses on applying programming fundamentals through a complete game project.
 
 ## 🎮 What I'm Building
 
@@ -32,22 +32,94 @@ Wrong guess!
 Lives remaining: 5
 ```
 
+---
+
 ## 🧠 Problem-Solving Approach
 
-Rather than building the entire game at once, I am breaking the problem down into smaller steps and solving each part independently.
+Instead of trying to build the entire game at once, I am breaking the problem down into smaller, manageable steps.
 
-The development process will gradually cover:
+The development process starts with understanding the game logic and designing the program flow before writing the implementation.
 
-1. Selecting a random word
-2. Displaying the hidden word
-3. Getting guesses from the player
-4. Checking whether a guessed letter exists in the word
-5. Updating the displayed word
-6. Tracking incorrect guesses and remaining lives
-7. Drawing the Hangman based on incorrect guesses
-8. Handling repeated guesses
-9. Determining win and lose conditions
-10. Improving the overall game flow
+---
+
+## Step 1 — Understanding the Game
+
+The first step was to understand the rules and define what the final program should do.
+
+The game needs to:
+
+* Generate a random word
+* Hide the letters from the player
+* Allow the player to guess one letter at a time
+* Reveal correctly guessed letters
+* Remove a life for incorrect guesses
+* Draw the Hangman as lives are lost
+* Detect when the player wins
+* Detect when the player runs out of lives
+
+---
+
+## Step 2 — Breaking the Problem Down
+
+Before writing code, I broke the game into smaller problems and mapped the program logic using a flowchart.
+
+### 🔍 Game Logic
+
+The program follows this general flow:
+
+1. Generate a random word.
+2. Create a hidden representation of the word using blanks.
+3. Ask the player to guess a letter.
+4. Check whether the guessed letter exists in the word.
+5. If the guess is correct:
+
+   * Reveal the corresponding letter(s).
+   * Check whether all letters have been guessed.
+6. If the guess is incorrect:
+
+   * Remove one life.
+   * Add the next stage of the Hangman drawing.
+   * Check whether the player has run out of lives.
+7. If all letters are revealed, the player wins.
+8. If all lives are lost, the player loses.
+9. Otherwise, continue asking for another guess.
+
+### 🧩 Main Decision Points
+
+The flowchart helped identify the key decisions that the program needs to make:
+
+```text
+Start
+  ↓
+Generate random word
+  ↓
+Create hidden word
+  ↓
+Ask for a letter
+  ↓
+Is the letter in the word?
+  ├── Yes → Reveal letter
+  │           ↓
+  │      Are all letters revealed?
+  │           ├── Yes → You Win 🎉
+  │           └── No  → Guess again
+  │
+  └── No → Lose a life
+              ↓
+        Are all lives lost?
+              ├── Yes → Game Over 💀
+              └── No  → Guess again
+```
+
+### 📊 Flowchart
+
+I created a flowchart to visualize the complete logic of the game before starting the implementation.
+
+**[View the Hangman Flowchart (PDF)](assets/hangman-flowchart.pdf)**
+
+The flowchart acts as the blueprint for the implementation and helps keep the different game states and exit conditions clear.
+
+---
 
 ## 📚 Python Concepts Practiced
 
@@ -63,18 +135,37 @@ This project is designed to reinforce several Python concepts:
 * Variables and data types
 * User input
 * Randomization
-* Basic problem-solving and program logic
+* Program flow and conditional logic
+
+---
 
 ## 🚀 Project Status
 
 🚧 **In Progress**
 
-I'm building this project step by step and documenting the problem-solving process as I go.
-
-## 🎯 Learning Goal
-
-The main goal of this project is not just to create a working game, but to practice breaking a larger programming problem into smaller, manageable problems and solving them one at a time.
+The project is being developed step by step, with each stage focusing on a specific programming concept or problem-solving task.
 
 ---
 
-More details about each development step will be documented as the project progresses.
+## 🎯 Learning Goal
+
+The main goal of this project is not only to create a working game, but also to practice a structured approach to problem solving:
+
+**Understand → Break down → Design → Implement → Test → Improve**
+
+The development process and decisions will be documented as the project progresses.
+
+---
+
+## 📁 Project Structure
+
+```text
+python-hangman/
+│
+├── assets/
+│   └── hangman-flowchart.pdf
+│
+├── main.py
+├── README.md
+└── .gitignore
+```
