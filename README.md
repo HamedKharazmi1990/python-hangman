@@ -121,7 +121,7 @@ The flowchart acts as the blueprint for the implementation and helps keep the di
 
 ## Step 1 — Picking a Random Word and Checking the Answer
 
-With the game flow defined, the first implementation step focuses on selecting a random word and checking the player's guess.
+With the game flow defined, the first implementation step focused on selecting a random word and checking the player's guess.
 
 ### 🎯 1. Select a Random Word
 
@@ -216,26 +216,109 @@ Breaking the problem into these smaller steps made it easier to implement and te
 * `if / else` statements
 * String comparison
 
-### 🧪 Testing
+---
 
-I tested the implementation by:
+## Step 2 — Replacing Blanks with Guesses
 
-* Running the program multiple times to verify that different words can be selected.
-* Entering both uppercase and lowercase guesses.
-* Testing letters that exist in the selected word.
-* Testing letters that don't exist in the selected word.
+The next challenge was to move from simply checking whether a guessed letter exists to actually **displaying the current state of the word**.
+
+The player should not see the original word. Instead, they should see a series of blanks representing the letters they still need to guess.
+
+### 🎯 1. Create the Placeholder
+
+First, I created a placeholder containing one underscore for every character in the chosen word.
+
+For example, if the selected word is:
+
+```text
+apple
+```
+
+the player should initially see:
+
+```text
+_ _ _ _ _
+```
+
+The number of blanks is determined dynamically based on the length of the selected word.
+
+This means the same logic works regardless of which word is randomly selected.
+
+### 🔍 2. Build the Display
+
+The next problem was to replace the appropriate blanks with letters that the player has already guessed correctly.
+
+For example, if the selected word is:
+
+```text
+apple
+```
+
+and the player guesses:
+
+```text
+p
+```
+
+the display should become:
+
+```text
+_ p p _ _
+```
+
+To achieve this, I loop through each letter of the chosen word and compare it with the player's guess.
+
+For each position:
+
+* If the current letter matches the guess → add that letter to `display`
+* Otherwise → add `_`
+
+This creates a new string representing the current state of the word.
+
+### 🧠 Problem-Solving Breakdown
+
+The logic can be simplified to:
+
+```text
+Get chosen word
+      ↓
+Create blanks based on word length
+      ↓
+Get user's guess
+      ↓
+Loop through each letter
+      ↓
+Does the letter match the guess?
+      ├── Yes → Add the letter
+      └── No  → Add "_"
+      ↓
+Display the result
+```
+
+This step builds the foundation for keeping track of the player's progress throughout the game.
+
+### 📚 Python Concepts Practiced
+
+* `len()`
+* `range()`
+* `for` loops
+* Strings
+* String concatenation with `+=`
+* Variables
+* Conditional statements
+* Working with character positions
 
 ### 💡 Key Learning
 
-The main lesson from this step was learning how several basic Python concepts can work together to solve a larger problem.
+The important concept in this step was learning how to **build a new string step by step** based on the contents of another string.
 
-A simple combination of `random.choice()`, `input()`, a `for` loop, and `if / else` statements is enough to implement the first piece of the game's logic.
+Instead of modifying the original word, the program creates a separate `display` value that represents what the player is currently allowed to see.
 
 ---
 
 # 📚 Python Concepts Practiced
 
-Throughout the project, I will be practicing:
+Throughout the project, I am practicing:
 
 * Variables and data types
 * User input
@@ -244,8 +327,11 @@ Throughout the project, I will be practicing:
 * `while` loops
 * Lists
 * Strings
+* `len()`
 * `range()`
 * Modules
+* `random.choice()`
+* String concatenation
 * Randomization
 * Program flow
 * Conditional logic
@@ -267,15 +353,16 @@ The project is being developed step by step, with each stage focusing on a speci
 * [x] Select a random word
 * [x] Get and normalize the player's guess
 * [x] Check whether the guessed letter exists in the word
+* [x] Create placeholders for the hidden word
+* [x] Reveal correctly guessed letters
 
 ### Upcoming
 
-* [ ] Display the hidden word
-* [ ] Track correctly guessed letters
+* [ ] Track multiple guesses
 * [ ] Implement the lives system
 * [ ] Add the Hangman stages
 * [ ] Implement win and lose conditions
-* [ ] Handle additional game logic
+* [ ] Handle repeated guesses
 * [ ] Final testing and cleanup
 
 ---
