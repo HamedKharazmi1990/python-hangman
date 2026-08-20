@@ -18,9 +18,9 @@ The goal is to guess all the letters in the word before running out of lives.
 
 # 🧠 Problem-Solving Approach
 
-Instead of trying to build the entire game at once, I am breaking the problem down into smaller, manageable steps.
+Instead of trying to build the entire game at once, I broke the problem down into smaller, manageable steps.
 
-The development process starts with understanding the game logic and designing the program flow before implementing each part.
+The development process started with understanding the game logic and designing the program flow before implementing each part.
 
 ## Step 1 — Understanding the Game
 
@@ -74,7 +74,7 @@ The flowchart acts as the blueprint for the implementation and helps keep the di
 
 ## Step 1 — Picking a Random Word and Checking the Answer
 
-With the game flow defined, the first implementation step focused on selecting a random word and checking the player's guess.
+The first implementation step focused on selecting a random word and checking the player's guess.
 
 ### 🎯 1. Select a Random Word
 
@@ -84,11 +84,9 @@ Instead of selecting the word manually, I used Python's `random` module to rando
 
 The selected word is stored in a variable called `chosen_word`.
 
-This makes each run of the program capable of starting with a different word.
-
 ### ⌨️ 2. Get the Player's Guess
 
-Next, the program asks the player to enter a letter.
+The program asks the player to enter a letter.
 
 The input is converted to lowercase so that uppercase and lowercase guesses are handled consistently.
 
@@ -104,11 +102,9 @@ This makes comparisons easier because the words in the word list are also stored
 
 ### 🔍 3. Check the Guess
 
-The next task is checking whether the guessed letter exists in the selected word.
+The program loops through each character of the selected word and compares it with the player's guess.
 
-Since a string is a sequence of characters in Python, I used a `for` loop to iterate through each character of the selected word.
-
-For each character, the program compares it with the player's guess:
+For each character:
 
 - If the letters match → `Right`
 - If they don't match → `Wrong`
@@ -129,22 +125,6 @@ the program checks each character:
     e → Wrong
     l → Wrong
 
-### 🧠 Problem-Solving Breakdown
-
-At this stage, the problem can be reduced to three smaller tasks:
-
-    Random word
-         ↓
-    Get user's guess
-         ↓
-    Loop through the word
-         ↓
-    Compare each letter with the guess
-         ↓
-    Right / Wrong
-
-Breaking the problem into these smaller steps made it easier to implement and test each part independently.
-
 ### 📚 Python Concepts Practiced
 
 - Importing modules
@@ -161,7 +141,7 @@ Breaking the problem into these smaller steps made it easier to implement and te
 
 ## Step 2 — Replacing Blanks with Guesses
 
-The next challenge was to move from simply checking whether a guessed letter exists to actually **displaying the current state of the word**.
+The next challenge was to move from simply checking whether a guessed letter exists to actually displaying the current state of the word.
 
 The player should not see the original word. Instead, they should see a series of blanks representing the letters they still need to guess.
 
@@ -169,21 +149,19 @@ The player should not see the original word. Instead, they should see a series o
 
 First, I created a placeholder containing one underscore for every character in the chosen word.
 
-For example, if the selected word is:
+For example:
 
     apple
 
-the player should initially see:
+becomes:
 
     _ _ _ _ _
 
 The number of blanks is determined dynamically based on the length of the selected word.
 
-This means the same logic works regardless of which word is randomly selected.
-
 ### 🔍 2. Build the Display
 
-The next problem was to replace the appropriate blanks with letters that the player has already guessed correctly.
+The next step was to replace the appropriate blanks with letters that the player has guessed correctly.
 
 For example, if the selected word is:
 
@@ -193,38 +171,16 @@ and the player guesses:
 
     p
 
-the display should become:
+the display becomes:
 
     _ p p _ _
 
-To achieve this, I loop through each letter of the chosen word and compare it with the player's guess.
+The program loops through each letter of the chosen word:
 
-For each position:
-
-- If the current letter matches the guess → add that letter to `display`
+- If the current letter matches the guess → add the letter
 - Otherwise → add `_`
 
 This creates a new string representing the current state of the word.
-
-### 🧠 Problem-Solving Breakdown
-
-The logic can be simplified to:
-
-    Get chosen word
-          ↓
-    Create blanks based on word length
-          ↓
-    Get user's guess
-          ↓
-    Loop through each letter
-          ↓
-    Does the letter match the guess?
-          ├── Yes → Add the letter
-          └── No  → Add "_"
-          ↓
-    Display the result
-
-This step builds the foundation for keeping track of the player's progress throughout the game.
 
 ### 📚 Python Concepts Practiced
 
@@ -233,15 +189,12 @@ This step builds the foundation for keeping track of the player's progress throu
 - `for` loops
 - Strings
 - String concatenation with `+=`
-- Variables
 - Conditional statements
-- Working with character positions
+- Building strings dynamically
 
 ### 💡 Key Learning
 
-The important concept in this step was learning how to **build a new string step by step** based on the contents of another string.
-
-Instead of modifying the original word, the program creates a separate `display` value that represents what the player is currently allowed to see.
+This step demonstrated how to build a new string step by step based on another string instead of modifying the original word.
 
 ---
 
@@ -249,32 +202,22 @@ Instead of modifying the original word, the program creates a separate `display`
 
 At this stage, the game becomes interactive and allows the player to keep guessing until the word has been completely revealed.
 
-The main challenges in this step were:
+The main challenges were:
 
-- Allowing the player to make multiple guesses
+- Allowing multiple guesses
 - Keeping previously correct guesses
 - Detecting when all letters have been guessed
 - Knowing when the game should stop
 
 ### 🔄 1. Allow Multiple Guesses
 
-The previous version of the game only allowed the player to make one guess.
+The previous version only allowed one guess.
 
 To allow the player to continue guessing, I introduced a `while` loop.
 
-The loop continues running while the game is not over:
+The loop continues while the game is not over.
 
-    Game starts
-        ↓
-    Player makes a guess
-        ↓
-    Update the display
-        ↓
-    Are all letters revealed?
-        ├── No → Ask for another guess
-        └── Yes → Game Over → You Win 🎉
-
-A `game_over` variable is used to control when the loop should stop.
+A `game_over` variable controls when the loop should stop.
 
 Initially:
 
@@ -284,13 +227,11 @@ Once all letters have been guessed:
 
     game_over = True
 
-This provides a clear exit condition for the `while` loop and prevents the program from running indefinitely.
-
 ### 🏆 2. Check if the Player Has Won
 
-The `display` string contains underscores for letters that have not been guessed yet.
+The `display` string contains underscores for letters that have not been guessed.
 
-Therefore, if there are no underscores left in `display`, all letters have been revealed and the player wins.
+If there are no underscores left in `display`, all letters have been revealed and the player wins.
 
 Conceptually:
 
@@ -300,35 +241,17 @@ Conceptually:
         │
         └── No ───→ You Win 🎉
 
-This gives the program its first actual win condition.
-
 ### 💾 3. Keep Previous Correct Guesses
 
-While implementing the `while` loop, I encountered an important problem.
+A problem appeared when the player made multiple correct guesses.
 
-Each new guess was rebuilding the `display` string from scratch, which caused previously correct guesses to disappear.
+Each new guess rebuilt the `display` string and caused previous correct guesses to disappear.
 
-For example:
-
-    First guess: a
-    _ a _ _ _
-
-    Second guess: r
-    _ _ r _ _
-
-The previous correct guess was lost.
-
-The problem was that the program only knew about the **current guess**, not the guesses that had already been confirmed as correct.
-
-### 🧩 Solution: Store Correct Letters
-
-To solve this problem, I introduced a list called `correct_letters`.
+To solve this, I created a list called `correct_letters`.
 
 Whenever the player correctly guesses a letter, that letter is added to the list.
 
-The list is created **outside the `while` loop**, so its contents persist between guesses.
-
-    correct_letters = []
+The list is created outside the `while` loop so that its contents persist between guesses.
 
 When rebuilding the display, the program checks:
 
@@ -343,11 +266,9 @@ Otherwise, an underscore is displayed.
 
 This step introduced an important programming concept:
 
-> **Maintaining state between iterations of a loop.**
+**Maintaining state between iterations of a loop.**
 
 The `correct_letters` list acts as a persistent record of the player's progress.
-
-This allows the program to remember previous correct guesses while continuing to process new guesses.
 
 ### 📚 Python Concepts Practiced
 
@@ -362,39 +283,29 @@ This allows the program to remember previous correct guesses while continuing to
 - Loop exit conditions
 - Building strings dynamically
 
-### 💡 Key Learning
-
-The biggest lesson from this step was understanding that a loop can repeatedly execute code while still maintaining information from previous iterations.
-
-By storing correct guesses in a separate list, the program can remember the player's progress and determine when the word has been completely revealed.
-
 ---
 
 ## Step 4 — Keeping Track of the Player's Lives
 
-The next step was to add the **lives system** and connect it to the Hangman ASCII art.
-
-Until this point, the game could detect whether the player had guessed the word correctly, but there was no consequence for incorrect guesses.
-
-In this step, the game starts keeping track of how many lives the player has left.
+The next step was to add the lives system and connect it to the Hangman ASCII art.
 
 ### ❤️ 1. Initialize the Lives
 
 The player starts with 6 lives.
 
-A variable called `lives` is used to keep track of the remaining lives:
+A variable called `lives` keeps track of the remaining lives.
 
     lives = 6
 
-Every time the player makes an incorrect guess, one life is removed.
+Every incorrect guess removes one life.
 
     6 → 5 → 4 → 3 → 2 → 1 → 0
 
-When the number of lives reaches zero, the game ends and the player loses.
+When lives reach zero, the game ends and the player loses.
 
 ### ❌ 2. Handle Incorrect Guesses
 
-The program checks whether the player's current guess exists in the chosen word.
+The program checks whether the guessed letter exists in the chosen word.
 
 If the guessed letter is not present, the number of lives is reduced by one.
 
@@ -411,8 +322,6 @@ Conceptually:
                     ├── No → Continue
                     └── Yes → You Lose
 
-The `not in` operator is used to determine whether the guessed letter does not exist in the selected word.
-
 ### 💀 3. Implement the Lose Condition
 
 After reducing the number of lives, the program checks whether the player has reached zero lives.
@@ -421,13 +330,11 @@ If:
 
     lives == 0
 
-the game is marked as over and the player receives a `"You lose."` message.
-
-This creates the second major game-ending condition alongside the existing win condition.
+the game is marked as over and the player receives a `You lose.` message.
 
 ### 🎨 4. Add the Hangman ASCII Art
 
-The project includes several ASCII-art stages representing the Hangman at different points in the game.
+The project contains several ASCII-art stages representing the Hangman at different points in the game.
 
 The stages correspond to the number of remaining lives:
 
@@ -439,41 +346,9 @@ The stages correspond to the number of remaining lives:
     Lives: 1 → Fifth stage
     Lives: 0 → Complete Hangman
 
-After each guess, the program displays the ASCII art corresponding to the player's current number of lives.
+Correct guesses do not change the Hangman.
 
-This means:
-
-- Correct guesses do not change the Hangman.
-- Incorrect guesses reduce `lives`.
-- The Hangman progresses as lives decrease.
-- When `lives` reaches `0`, the final Hangman stage is displayed.
-
-### 🧠 Problem-Solving Breakdown
-
-The logic for this step can be simplified to:
-
-    Player makes a guess
-            ↓
-    Is the guess incorrect?
-        ├── No → Keep current lives
-        │
-        └── Yes → lives -= 1
-                      ↓
-                 Display Hangman
-                      ↓
-                 Are lives = 0?
-                    ├── No → Continue
-                    └── Yes → You Lose
-
-### 💡 Key Learning
-
-This step introduced the concept of maintaining and modifying a numerical state during a game.
-
-The `lives` variable represents the current state of the player, and its value directly affects both the game logic and the visual state of the Hangman.
-
-It also demonstrated how different parts of a program can work together:
-
-**User Input → Game Logic → Update State → Display Result**
+Incorrect guesses reduce `lives` and display the corresponding Hangman stage.
 
 ### 📚 Python Concepts Practiced
 
@@ -491,13 +366,182 @@ It also demonstrated how different parts of a program can work together:
 
 ---
 
+## Step 5 — Improving the User Experience
+
+The final step focused on improving the structure of the project and making the game easier and more enjoyable to use.
+
+The main goals were:
+
+- Separate data from the main game logic
+- Practice importing custom modules
+- Give the user better feedback
+- Handle repeated guesses
+- Show the remaining lives
+- Improve the win and lose messages
+- Add a visual game logo
+
+### 📦 1. Organize the Word List into a Module
+
+Instead of keeping the word list directly inside `main.py`, I moved it into a separate module called `hangman_words.py`.
+
+The word list can then be imported into the main program.
+
+This separates the game logic from the data and makes the project structure cleaner.
+
+### 🎨 2. Organize the Hangman Art into a Module
+
+The Hangman stages were moved into a separate module called `hangman_art.py`.
+
+This module contains:
+
+- The Hangman stages
+- The game logo
+
+The main program imports the required elements instead of keeping all of the ASCII art inside `main.py`.
+
+This makes the main game logic easier to read and maintain.
+
+### 🧩 3. Practice Custom Modules
+
+This step provided practical experience with Python modules and different import styles.
+
+For example, a module can be imported directly:
+
+    import hangman_words
+
+Or specific objects can be imported from a module:
+
+    from hangman_words import word_list
+
+Using separate modules helps keep larger programs organized and makes individual components easier to manage.
+
+### 🔁 4. Handle Repeated Guesses
+
+The game now checks whether the player has already guessed a letter.
+
+If the letter is already inside `correct_letters`, the user receives feedback such as:
+
+    You already guessed a
+
+The player does not lose a life for repeating a correct guess.
+
+This makes the game fairer and provides clearer feedback.
+
+### ❌ 5. Give Feedback for Incorrect Guesses
+
+When the player guesses a letter that does not exist in the chosen word, the program tells them exactly what happened.
+
+For example:
+
+    You guessed d, that's not in the word. You lose a life.
+
+This improves the user experience by making the result of each action clear.
+
+### ❤️ 6. Display Remaining Lives
+
+The game now tells the player how many lives they have remaining.
+
+For example:
+
+    4 / 6 lives left
+
+This gives the player a clear indication of their current game state and how close they are to losing.
+
+### 🏆 7. Reveal the Correct Word
+
+If the player loses the game, the program reveals the word they were trying to guess.
+
+For example:
+
+    The word was: python
+
+This prevents the game from ending without explaining the correct answer.
+
+### 🖥️ 8. Add a Game Logo
+
+The Hangman logo is stored in `hangman_art.py` and displayed when the game starts.
+
+This gives the command-line application a more polished appearance.
+
+### 🧠 Problem-Solving Insight
+
+The final step showed that building a program is not only about making the core functionality work.
+
+After the main logic was complete, I improved:
+
+- Code organization
+- User feedback
+- Readability
+- Maintainability
+- User experience
+
+This is an important part of software development because a working program can still be improved significantly.
+
+### 📚 Python Concepts Practiced
+
+- Creating custom modules
+- `import`
+- `from ... import ...`
+- Separating data from logic
+- Lists
+- Conditional logic
+- F-strings
+- User feedback
+- State management
+- Code organization
+- User experience considerations
+
+---
+
+# 🏁 Final Game Flow
+
+After completing all five steps, the overall game flow is:
+
+    Start Game
+        ↓
+    Display Hangman Logo
+        ↓
+    Select Random Word
+        ↓
+    Create Hidden Word
+        ↓
+    Player Makes a Guess
+        ↓
+    Has The Letter Been Guessed Before?
+        ├── Yes → Inform User
+        │
+        └── No
+             ↓
+        Is Letter In The Word?
+             ├── Yes → Reveal Letter
+             │
+             └── No → Lose One Life
+                        ↓
+                  Display Hangman Stage
+        ↓
+    Are All Letters Revealed?
+        ├── Yes → You Win 🎉
+        │
+        └── No
+             ↓
+    Are There Any Lives Left?
+        ├── Yes → Continue
+        │
+        └── No → You Lose 💀
+                    ↓
+               Reveal Word
+                    ↓
+                  End Game
+
+---
+
 # 📚 Python Concepts Practiced
 
-Throughout the project, I am practicing:
+Throughout the project, I practiced:
 
 - Variables and data types
 - User input
-- `if / elif / else` statements
+- `if / elif / else`
 - `for` loops
 - `while` loops
 - Lists
@@ -505,6 +549,9 @@ Throughout the project, I am practicing:
 - `len()`
 - `range()`
 - Modules
+- Custom modules
+- `import`
+- `from ... import ...`
 - `random.choice()`
 - String concatenation
 - `.append()`
@@ -512,18 +559,22 @@ Throughout the project, I am practicing:
 - The `in` operator
 - The `not in` operator
 - List indexing
+- F-strings
+- ASCII art
 - Program flow
 - Conditional logic
 - Maintaining state
 - Problem decomposition
+- Code organization
+- User experience
 
 ---
 
 # 🚀 Project Status
 
-🚧 **In Progress**
+✅ **Completed**
 
-The project is being developed step by step, with each stage focusing on a specific programming concept or problem-solving task.
+The Hangman game has now been implemented through five development stages.
 
 ### Completed
 
@@ -542,22 +593,15 @@ The project is being developed step by step, with each stage focusing on a speci
 - [x] Implement the lives system
 - [x] Reduce lives after incorrect guesses
 - [x] Implement the lose condition
-- [x] Display the Hangman stages based on remaining lives
-
-### Upcoming
-
-- [ ] Handle repeated guesses
-- [ ] Final testing and cleanup
-
----
-
-# 🎯 Learning Goal
-
-The main goal of this project is not only to create a working game, but also to practice a structured approach to problem solving:
-
-**Understand → Break Down → Design → Implement → Test → Improve**
-
-The development process and decisions are being documented as the project progresses.
+- [x] Display Hangman stages based on remaining lives
+- [x] Separate the word list into a custom module
+- [x] Separate the Hangman art into a custom module
+- [x] Add the Hangman logo
+- [x] Handle repeated guesses
+- [x] Improve feedback for incorrect guesses
+- [x] Display remaining lives
+- [x] Reveal the correct word when the player loses
+- [x] Improve overall user experience
 
 ---
 
@@ -568,6 +612,48 @@ The development process and decisions are being documented as the project progre
     ├── assets/
     │   └── hangman-flowchart.pdf
     │
+    ├── hangman_art.py
+    ├── hangman_words.py
     ├── main.py
     ├── README.md
     └── .gitignore
+
+---
+
+# 🎯 Learning Goal
+
+The main goal of this project was not only to create a working game, but to practice a structured approach to problem solving:
+
+**Understand → Break Down → Design → Implement → Test → Improve**
+
+This project helped me practice turning a larger problem into smaller tasks, implementing each part individually, testing the result, and finally improving the code structure and user experience.
+
+---
+
+# 🔮 Possible Future Improvements
+
+Although the core game is complete, there are still many ways it could be improved.
+
+Possible future ideas include:
+
+- Preventing invalid inputs
+- Supporting full-word guesses
+- Adding difficulty levels
+- Keeping score
+- Adding multiple rounds
+- Adding a replay option
+- Improving the command-line interface
+- Adding colors to the terminal
+- Creating a graphical user interface
+- Adding unit tests
+- Improving input validation
+
+These improvements could be added later as additional exercises.
+
+---
+
+# 👨‍💻 About This Project
+
+This project is part of my journey to become a more versatile software developer by expanding my Python skills and practicing problem solving through hands-on projects.
+
+The focus of this project is not simply the final game, but the process of understanding a problem, breaking it down, implementing it step by step, and improving the final result.
