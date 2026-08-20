@@ -370,6 +370,127 @@ By storing correct guesses in a separate list, the program can remember the play
 
 ---
 
+## Step 4 — Keeping Track of the Player's Lives
+
+The next step was to add the **lives system** and connect it to the Hangman ASCII art.
+
+Until this point, the game could detect whether the player had guessed the word correctly, but there was no consequence for incorrect guesses.
+
+In this step, the game starts keeping track of how many lives the player has left.
+
+### ❤️ 1. Initialize the Lives
+
+The player starts with 6 lives.
+
+A variable called `lives` is used to keep track of the remaining lives:
+
+    lives = 6
+
+Every time the player makes an incorrect guess, one life is removed.
+
+    6 → 5 → 4 → 3 → 2 → 1 → 0
+
+When the number of lives reaches zero, the game ends and the player loses.
+
+### ❌ 2. Handle Incorrect Guesses
+
+The program checks whether the player's current guess exists in the chosen word.
+
+If the guessed letter is not present, the number of lives is reduced by one.
+
+Conceptually:
+
+    Player makes a guess
+            ↓
+    Is the letter in the word?
+        ┌── Yes ──→ Continue
+        │
+        └── No ───→ Lose 1 life
+                        ↓
+                  Are lives = 0?
+                    ├── No → Continue
+                    └── Yes → You Lose
+
+The `not in` operator is used to determine whether the guessed letter does not exist in the selected word.
+
+### 💀 3. Implement the Lose Condition
+
+After reducing the number of lives, the program checks whether the player has reached zero lives.
+
+If:
+
+    lives == 0
+
+the game is marked as over and the player receives a `"You lose."` message.
+
+This creates the second major game-ending condition alongside the existing win condition.
+
+### 🎨 4. Add the Hangman ASCII Art
+
+The project includes several ASCII-art stages representing the Hangman at different points in the game.
+
+The stages correspond to the number of remaining lives:
+
+    Lives: 6 → No man
+    Lives: 5 → First stage
+    Lives: 4 → Second stage
+    Lives: 3 → Third stage
+    Lives: 2 → Fourth stage
+    Lives: 1 → Fifth stage
+    Lives: 0 → Complete Hangman
+
+After each guess, the program displays the ASCII art corresponding to the player's current number of lives.
+
+This means:
+
+- Correct guesses do not change the Hangman.
+- Incorrect guesses reduce `lives`.
+- The Hangman progresses as lives decrease.
+- When `lives` reaches `0`, the final Hangman stage is displayed.
+
+### 🧠 Problem-Solving Breakdown
+
+The logic for this step can be simplified to:
+
+    Player makes a guess
+            ↓
+    Is the guess incorrect?
+        ├── No → Keep current lives
+        │
+        └── Yes → lives -= 1
+                      ↓
+                 Display Hangman
+                      ↓
+                 Are lives = 0?
+                    ├── No → Continue
+                    └── Yes → You Lose
+
+### 💡 Key Learning
+
+This step introduced the concept of maintaining and modifying a numerical state during a game.
+
+The `lives` variable represents the current state of the player, and its value directly affects both the game logic and the visual state of the Hangman.
+
+It also demonstrated how different parts of a program can work together:
+
+**User Input → Game Logic → Update State → Display Result**
+
+### 📚 Python Concepts Practiced
+
+- Variables
+- Integers
+- Arithmetic operators
+- `-=`
+- `if` statements
+- The `not in` operator
+- Boolean game states
+- Lists
+- List indexing
+- ASCII art
+- Combining program logic with visual output
+
+---
+
 # 📚 Python Concepts Practiced
 
 Throughout the project, I am practicing:
@@ -389,6 +510,8 @@ Throughout the project, I am practicing:
 - `.append()`
 - Boolean values
 - The `in` operator
+- The `not in` operator
+- List indexing
 - Program flow
 - Conditional logic
 - Maintaining state
@@ -416,12 +539,13 @@ The project is being developed step by step, with each stage focusing on a speci
 - [x] Keep track of previously correct guesses
 - [x] Implement the win condition
 - [x] Add a game-over state
+- [x] Implement the lives system
+- [x] Reduce lives after incorrect guesses
+- [x] Implement the lose condition
+- [x] Display the Hangman stages based on remaining lives
 
 ### Upcoming
 
-- [ ] Implement the lives system
-- [ ] Add the Hangman stages
-- [ ] Implement the lose condition
 - [ ] Handle repeated guesses
 - [ ] Final testing and cleanup
 
@@ -431,7 +555,7 @@ The project is being developed step by step, with each stage focusing on a speci
 
 The main goal of this project is not only to create a working game, but also to practice a structured approach to problem solving:
 
-**Understand → Break down → Design → Implement → Test → Improve**
+**Understand → Break Down → Design → Implement → Test → Improve**
 
 The development process and decisions are being documented as the project progresses.
 
